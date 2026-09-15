@@ -179,30 +179,102 @@
         700px
       );
 
+      display: flex;
+      flex-direction: column;
+
       margin: 0 auto;
 
       padding-top: 52px;
       padding-bottom: 56px;
     }
 
+    .player.requesting .artwork-wrap,
+    .player.requesting .metadata {
+      display: none;
+    }
 
-    /*
-      LIVE STATE LABEL
-      This is deliberately separate from metadata.
-    */
+    .player.requesting .player-core {
+      display: block;
+    }
 
-    .live-state {
-      margin-bottom: 10px;
+    .player.requesting .request-view {
+      order: 2;
+    }
 
+    .player .controls {
+      order: 3;
+    }
+
+    .player .osd {
+      order: 4;
+    }
+
+    .live-sticker-banner {
+      position: fixed;
+      left: 18px;
+      bottom: 18px;
+      z-index: 90;
+
+      width: min(220px, calc(100% - 36px));
+
+      border: 1px solid var(--line);
+      background: var(--surface);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .24);
+    }
+
+    .live-sticker-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+
+      width: 100%;
+      padding: 10px 12px;
+
+      border: 0;
+      background: transparent;
       color: var(--yellow);
 
-      font-size: 11px;
-      font-weight: 600;
-
+      font-size: 10px;
+      font-weight: 700;
       letter-spacing: .1em;
+      text-align: left;
       text-transform: uppercase;
+      cursor: pointer;
+    }
 
-      text-align: center;
+    .live-sticker-toggle:hover,
+    .live-sticker-toggle:focus-visible {
+      color: var(--white);
+      outline: none;
+    }
+
+    .live-sticker-details {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+
+      padding: 0 12px 11px;
+
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .live-sticker-details a {
+      flex-shrink: 0;
+      color: var(--yellow);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-decoration: none;
+    }
+
+    .live-sticker-details a:hover,
+    .live-sticker-details a:focus-visible {
+      color: var(--white);
+      outline: none;
     }
 
 
@@ -212,24 +284,69 @@
        ========================================================= */
 
     .player-core {
-      display: grid;
-
-      grid-template-columns:
-        minmax(170px, 210px)
-        minmax(0, 1fr);
-
+      display: flex;
+      flex-direction: column;
       align-items: center;
+      gap: 22px;
 
-      column-gap: 42px;
+      order: 1;
+
+      text-align: center;
 
       max-width: 590px;
 
       margin: 0 auto;
     }
 
+    .show-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      padding: 7px 12px;
+
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+
+      color: var(--white);
+
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .show-pill-icon,
+    .daypart-icon {
+      display: inline-flex;
+      flex-shrink: 0;
+    }
+
+    .show-pill-icon svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .daypart-icon svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    .show-pill-icon svg,
+    .daypart-icon svg {
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.7;
+    }
+
     .artwork-wrap {
       width: 210px;
       height: 210px;
+
+      position: relative;
 
       flex-shrink: 0;
     }
@@ -292,6 +409,7 @@
        ========================================================= */
 
     .metadata {
+      width: 100%;
       min-width: 0;
     }
 
@@ -307,6 +425,10 @@
     }
 
     .track-line {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+
       min-width: 0;
 
       color: var(--muted);
@@ -324,26 +446,28 @@
     }
 
     .track-line .separator {
-      color: var(--muted-2);
-
-      padding: 0 4px;
+      display: none;
     }
 
 
     /* =========================================================
        SIGNAL
-       DIRECTLY BELOW ARTIST / TITLE
+       WRAPPED AROUND ARTWORK
        ========================================================= */
 
     .signal {
-      width: 180px;
-      height: 28px;
+      position: absolute;
 
-      margin: 34px auto 16px;
+      inset: -14px;
 
-      position: relative;
+      width: auto;
+      height: auto;
 
-      overflow: hidden;
+      border-radius: 50%;
+
+      pointer-events: none;
+
+      z-index: 2;
     }
 
     .signal-canvas {
@@ -353,48 +477,8 @@
       height: 100%;
     }
 
-    .signal-dot {
-      position: absolute;
-
-      right: 0;
-      top: 50%;
-
-      width: 5px;
-      height: 5px;
-
-      transform: translateY(-50%);
-
-      border-radius: 50%;
-
-      background: var(--yellow);
-
-      transition:
-        opacity 150ms ease;
-    }
-
-    .signal-label {
-      margin-top: 6px;
-
-      text-align: center;
-
-      color: var(--muted);
-
-      font-family:
-        "SFMono-Regular",
-        Consolas,
-        "Liberation Mono",
-        monospace;
-
-      font-size: 9px;
-
-      letter-spacing: .1em;
-      text-transform: uppercase;
-    }
-
-
-    /* =========================================================
-       CONTROLS
-       DIRECTLY BELOW SIGNAL
+     /* =========================================================
+       PLAYER CONTROLS
        ========================================================= */
 
     .controls {
@@ -484,7 +568,7 @@
 
     .volume-control:hover .volume-slider-wrap,
     .volume-control:focus-within .volume-slider-wrap {
-      width: 92px;
+      width: 174px;
 
       margin-left: 5px;
     }
@@ -493,12 +577,48 @@
       width: 82px;
       height: 2px;
 
+      flex-shrink: 0;
+
       appearance: none;
 
       background: #444;
 
       cursor: pointer;
       outline: none;
+    }
+
+    .signal-label {
+      position: static;
+
+      width: 76px;
+
+      margin-left: 10px;
+
+      transform: none;
+
+      color: var(--muted);
+
+      font-family:
+        "SFMono-Regular",
+        Consolas,
+        "Liberation Mono",
+        monospace;
+
+      font-size: 9px;
+
+      letter-spacing: .08em;
+      text-align: left;
+      text-transform: uppercase;
+
+      opacity: 0;
+
+      transition:
+        opacity 160ms ease;
+    }
+
+    .volume-control:hover .signal-label,
+    .volume-control:focus-within .signal-label {
+      opacity: 1;
     }
 
     .volume-slider::-webkit-slider-thumb {
@@ -702,17 +822,121 @@
       letter-spacing: -.03em;
     }
 
+    .schedule-spotlight {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 1px;
+
+      margin-bottom: 34px;
+
+      border: 1px solid var(--line);
+      background: var(--line);
+    }
+
+    .schedule-status {
+      min-width: 0;
+
+      padding: 18px 20px;
+
+      background: var(--surface);
+    }
+
+    .schedule-status.next {
+      background: transparent;
+    }
+
+    .schedule-status-label {
+      display: block;
+
+      margin-bottom: 8px;
+
+      color: var(--muted-2);
+
+      font-family:
+        "SFMono-Regular",
+        Consolas,
+        monospace;
+
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .schedule-status-name {
+      display: block;
+
+      overflow: hidden;
+
+      color: var(--white);
+
+      font-size: 19px;
+      font-weight: 600;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .schedule-status-icon {
+      display: inline-flex;
+
+      margin-bottom: 7px;
+
+      color: var(--yellow);
+    }
+
+    .schedule-status-icon svg {
+      width: 18px;
+      height: 18px;
+
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.7;
+    }
+
+    .schedule-status-time {
+      display: block;
+
+      margin-top: 5px;
+
+      color: var(--yellow);
+
+      font-family:
+        "SFMono-Regular",
+        Consolas,
+        monospace;
+
+      font-size: 11px;
+      letter-spacing: .04em;
+    }
+
+    .schedule-status-description {
+      margin: 10px 0 0;
+
+      color: var(--muted);
+
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .schedule-status.next .schedule-status-name {
+      color: var(--muted);
+    }
+
     .timeline-scroll {
       width: 100%;
 
-      overflow-x: auto;
-      overflow-y: visible;
+      overflow: hidden;
+
+      scrollbar-width: none;
+    }
+
+    .timeline-scroll::-webkit-scrollbar {
+      display: none;
     }
 
     .timeline {
       position: relative;
-
-      min-width: 1080px;
 
       padding-bottom: 8px;
     }
@@ -757,24 +981,20 @@
     .dayparts {
       position: relative;
 
-      display: grid;
-
-      grid-template-columns:
-        3fr
-        4fr
-        6fr
-        3fr
-        3fr;
+      border-top: 1px solid var(--line);
 
       min-height: 105px;
     }
 
     .daypart {
-      position: relative;
+      position: absolute;
+      top: 0;
 
       padding-top: 18px;
 
       border-left: 1px solid #242424;
+
+      overflow: hidden;
 
       cursor: pointer;
     }
@@ -784,7 +1004,9 @@
     }
 
     .daypart-name {
-      display: block;
+      display: flex;
+      align-items: center;
+      gap: 7px;
 
       color: var(--muted);
 
@@ -829,11 +1051,20 @@
     }
 
     .daypart.open .daypart-detail {
-      max-height: 130px;
+      max-height: 320px;
 
       padding-top: 18px;
 
       opacity: 1;
+    }
+
+    .daypart.open {
+      z-index: 10;
+      min-width: 190px;
+      padding-right: 14px;
+      background: var(--surface);
+      overflow: visible;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, .28);
     }
 
     .daypart-description {
@@ -841,6 +1072,9 @@
 
       font-size: 13px;
       line-height: 1.5;
+
+      white-space: normal;
+      overflow-wrap: anywhere;
     }
 
     .daypart-type {
@@ -908,6 +1142,11 @@
       border-radius: 50%;
 
       background: var(--yellow);
+    }
+
+    .daypart.active {
+      background: var(--surface);
+      box-shadow: inset 0 -2px 0 var(--yellow);
     }
 
 
@@ -1058,6 +1297,37 @@
       opacity: 1;
     }
 
+    .about-section.always-open .about-content {
+      max-height: none;
+
+      padding: 0 0 34px;
+
+      opacity: 1;
+    }
+
+    .manual-section {
+      padding-top: 20px;
+    }
+
+    .manual-kicker {
+      margin-bottom: 12px;
+
+      color: var(--yellow);
+
+      font-family:
+        "SFMono-Regular",
+        Consolas,
+        monospace;
+
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .manual-section .about-content p {
+      max-width: 58ch;
+    }
+
     .about-content p {
       margin: 0 0 18px;
 
@@ -1147,6 +1417,72 @@
       color: var(--muted);
 
       font-size: 14px;
+    }
+
+    .sticker-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .sticker-card {
+      display: grid;
+      grid-template-columns: 72px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .sticker-art {
+      display: grid;
+      place-items: center;
+
+      width: 72px;
+      height: 72px;
+
+      border: 1px solid var(--line);
+      background: var(--surface);
+    }
+
+    .sticker-art img {
+      width: 54px;
+      height: 54px;
+
+      object-fit: contain;
+    }
+
+    .sticker-details strong,
+    .sticker-details span {
+      display: block;
+    }
+
+    .sticker-price {
+      margin-top: 5px;
+
+      color: var(--yellow) !important;
+
+      font-family:
+        "SFMono-Regular",
+        Consolas,
+        monospace;
+
+      font-size: 11px !important;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .sticker-order {
+      color: var(--yellow);
+
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .sticker-order:hover,
+    .sticker-order:focus-visible {
+      color: var(--white);
+      outline: none;
     }
 
 
@@ -1302,13 +1638,7 @@
       }
 
       .player-core {
-        display: flex;
-
-        flex-direction: column;
-
         gap: 22px;
-
-        text-align: center;
       }
 
       .artwork-wrap {
@@ -1328,10 +1658,6 @@
         font-size: 15px;
       }
 
-      .signal {
-        margin-top: 32px;
-      }
-
       .schedule-view,
       .about-view {
         padding-top: 48px;
@@ -1344,6 +1670,14 @@
 
       .section-heading {
         font-size: 28px;
+      }
+
+      .schedule-spotlight {
+        grid-template-columns: 1fr;
+      }
+
+      .schedule-status.next {
+        border-top: 1px solid var(--line);
       }
 
       .recent-row {
@@ -1390,6 +1724,39 @@
 
       .mini-controls {
         gap: 5px;
+      }
+    }
+
+    @media (hover: none), (pointer: coarse) {
+
+      .control,
+      .play-control {
+        width: 44px;
+        height: 44px;
+      }
+
+      .control svg {
+        width: 22px;
+        height: 22px;
+      }
+
+      .play-control svg {
+        width: 27px;
+        height: 27px;
+      }
+
+      .volume-control {
+        width: 44px;
+        min-width: 44px;
+      }
+
+      .volume-slider-wrap {
+        display: none;
+      }
+
+      .mini-control {
+        width: 44px;
+        height: 44px;
       }
     }
 
@@ -1490,19 +1857,6 @@
         >
 
 
-          <!--
-            LIVE is intentionally directly above the show name.
-            It is NOT the signal label.
-          -->
-
-          <div
-            id="liveState"
-            class="live-state"
-          >
-            LIVE
-          </div>
-
-
           <!-- =================================================
                ARTWORK + METADATA
                ================================================= -->
@@ -1511,6 +1865,23 @@
             id="playerCore"
             class="player-core"
           >
+
+            <div
+              class="show-pill"
+              aria-live="polite"
+            >
+
+              <span
+                id="showIcon"
+                class="show-pill-icon"
+                aria-hidden="true"
+              ></span>
+
+              <span id="showName">
+                LOADING...
+              </span>
+
+            </div>
 
             <div class="artwork-wrap">
 
@@ -1521,17 +1892,24 @@
                 alt=""
               >
 
+              <div
+                id="signal"
+                class="signal"
+                aria-label="Signal status"
+              >
+
+                <canvas
+                  id="signalCanvas"
+                  class="signal-canvas"
+                  aria-hidden="true"
+                ></canvas>
+
+              </div>
+
             </div>
 
 
             <div class="metadata">
-
-              <div
-                id="showName"
-                class="show-name"
-              >
-                LOADING...
-              </div>
 
               <div
                 class="track-line"
@@ -1555,38 +1933,6 @@
 
               </div>
 
-            </div>
-
-          </div>
-
-
-          <!-- =================================================
-               SIGNAL
-               ================================================= -->
-
-          <div
-            id="signal"
-            class="signal"
-            aria-label="Signal status"
-          >
-
-            <canvas
-              id="signalCanvas"
-              class="signal-canvas"
-              aria-hidden="true"
-            ></canvas>
-
-            <span
-              id="signalDot"
-              class="signal-dot"
-              aria-hidden="true"
-            ></span>
-
-            <div
-              id="signalLabel"
-              class="signal-label"
-            >
-              READY
             </div>
 
           </div>
@@ -1681,6 +2027,14 @@
                   value="84"
                   aria-label="Volume"
                 >
+
+                <span
+                  id="signalLabel"
+                  class="signal-label"
+                  aria-live="polite"
+                >
+                  READY
+                </span>
 
               </div>
 
@@ -1798,6 +2152,33 @@
 
         </div>
 
+        <aside
+          id="liveStickerBanner"
+          class="live-sticker-banner"
+          aria-label="MBV sticker shop"
+        >
+
+          <button
+            id="liveStickerToggle"
+            class="live-sticker-toggle"
+            type="button"
+            aria-expanded="false"
+          >
+            <span>MBV STICKERS</span>
+            <span aria-hidden="true">+</span>
+          </button>
+
+          <div
+            id="liveStickerDetails"
+            class="live-sticker-details"
+            hidden
+          >
+            <span>Yellow + green marks from $3.</span>
+            <a href="mailto:mbv@mbvradio.com?subject=MBV%20Sticker%20Order">ORDER</a>
+          </div>
+
+        </aside>
+
       </section>
 
 
@@ -1816,6 +2197,81 @@
           <h1 class="section-heading">
             SCHEDULE
           </h1>
+
+
+          <div
+            class="schedule-spotlight"
+            aria-live="polite"
+          >
+
+            <div class="schedule-status">
+
+              <span class="schedule-status-label">
+                NOW ON AIR
+              </span>
+
+              <span
+                id="currentShowIcon"
+                class="schedule-status-icon"
+                aria-hidden="true"
+              ></span>
+
+              <strong
+                id="currentShowName"
+                class="schedule-status-name"
+              >
+                Loading schedule...
+              </strong>
+
+              <span
+                id="currentShowTime"
+                class="schedule-status-time"
+              >
+                --:--
+              </span>
+
+              <p
+                id="currentShowDescription"
+                class="schedule-status-description"
+              ></p>
+
+            </div>
+
+
+            <div class="schedule-status next">
+
+              <span class="schedule-status-label">
+                NEXT UP
+              </span>
+
+              <span
+                id="nextShowIcon"
+                class="schedule-status-icon"
+                aria-hidden="true"
+              ></span>
+
+              <strong
+                id="nextShowName"
+                class="schedule-status-name"
+              >
+                Loading schedule...
+              </strong>
+
+              <span
+                id="nextShowTime"
+                class="schedule-status-time"
+              >
+                --:--
+              </span>
+
+              <p
+                id="nextShowDescription"
+                class="schedule-status-description"
+              ></p>
+
+            </div>
+
+          </div>
 
 
           <div class="timeline-scroll">
@@ -1885,45 +2341,22 @@
 
           <!-- ABOUT -->
 
-          <section class="about-section open">
+          <section class="about-section manual-section always-open">
 
-            <button
-              class="about-toggle"
-              type="button"
-            >
-
-              <span>
-                ABOUT
-              </span>
-
-              <span class="about-marker">
-                −
-              </span>
-
-            </button>
-
+            <div class="manual-kicker">
+              01 / ABOUT THE STATION
+            </div>
 
             <div class="about-content">
 
               <p>
-                Launched in 2024,MBV is a 24/7 automated radio station playing
+                Launched in 2024, MBV (Massive Brain Volume) is a community-driven 24/7 radio station playing
                 classic drum &amp; bass music, with occasional
                 live programming.
               </p>
 
 
               <ul class="fact-list">
-
-                <li class="fact">
-                  <span class="fact-label">
-                    BROADCAST
-                  </span>
-
-                  <span class="fact-value">
-                    24/7
-                  </span>
-                </li>
-
 
                 <li class="fact">
                   <span class="fact-label">
@@ -1939,7 +2372,6 @@
                   <span class="fact-label">
                     EST.
                   </span>
-
                   <span class="fact-value">
                     2024
                   </span>
@@ -1948,9 +2380,8 @@
 
                 <li class="fact">
                   <span class="fact-label">
-                    ORIGIN
+                    BASED IN
                   </span>
-
                   <span class="fact-value">
                     PENNSYLVANIA, USA
                   </span>
@@ -1964,23 +2395,11 @@
 
           <!-- CREDITS -->
 
-          <section class="about-section">
+          <section class="about-section manual-section always-open">
 
-            <button
-              class="about-toggle"
-              type="button"
-            >
-
-              <span>
-                CONTACT & CREDITS
-              </span>
-
-              <span class="about-marker">
-                +
-              </span>
-
-            </button>
-
+            <div class="manual-kicker">
+              CONTACT & CREDITS
+            </div>
 
             <div class="about-content">
 
@@ -1990,18 +2409,15 @@
                   <span class="fact-label">
                     SAY HELLO!
                   </span>
-
                   <span class="fact-value">
                     mbv@mbvradio.com
                   </span>
                 </li>
 
-
                 <li class="fact">
                   <span class="fact-label">
                     POWERED BY
                   </span>
-
                   <span class="fact-value">
                     AzuraCast
                   </span>
@@ -2009,11 +2425,10 @@
 
                 <li class="fact">
                   <span class="fact-label">
-                    DEVELOPED WITH <3
+                    DEVELOPED WITH <3 BY
                   </span>
-
                   <span class="fact-value">
-                    REDRAS RECORDINGS | SLOUGH, UK
+                    REDRAS 
                   </span>
                 </li>
 
@@ -2024,7 +2439,7 @@
           </section>
 
 
-          <!-- CONTROLS -->
+          <!-- STICKER SHOP -->
 
           <section class="about-section">
 
@@ -2034,7 +2449,7 @@
             >
 
               <span>
-                CONTROLS
+                STICKER SHOP
               </span>
 
               <span class="about-marker">
@@ -2046,23 +2461,83 @@
 
             <div class="about-content">
 
-<pre class="controls-reference">
-SPACE       PLAY / PAUSE
-M           MUTE
-← →         NAVIGATE</pre>
+              <p>
+                Take MBV with you. Support the station and show your love with a sticker.
+              </p>
+              <div class="sticker-grid">
+                <article class="sticker-card">
+                  <div class="sticker-art">
+                    <img
+                      src="https://raw.githubusercontent.com/radiombv/mbvradio26/refs/heads/main/MBV_YELLOWc.png"
+                      alt="YELLOW"
+                    >
+                  </div>
 
-              <p style="margin-top:20px;">
+                  <div class="sticker-details">
+                    <strong>CLASSIC YELLOW</strong>
+                    <span>The OG wordmark.</span>
+                    <span class="sticker-price">$3</span>
+                  </div>
+
+                  <a
+                    class="sticker-order"
+                    href="mailto:mbv@mbvradio.com?subject=MBV%20Yellow%20Sticker"
+                  >
+                    BUY
+                  </a>
+
+                </article>
+
+
+                <article class="sticker-card">
+
+                  <div class="sticker-art">
+                    <img
+                      src="https://raw.githubusercontent.com/radiombv/mbvradio26/refs/heads/main/MBV_GREENc.png"
+                      alt="GREEN"
+                    >
+                  </div>
+
+                  <div class="sticker-details">
+                    <strong>GREEN</strong>
+                    <span>We smoked a lot of this.</span>
+                    <span class="sticker-price">$4.20</span>
+                  </div>
+
+                  <a
+                    class="sticker-order"
+                    href="mailto:mbv@mbvradio.com?subject=MBV%20Green%20Sticker"
+                  >
+                    BUY
+                  </a>
+                </article>
+              </div>
+            </div>
+          </section>
+
+
+          <!-- CONTROLS -->
+
+          <section class="about-section manual-section always-open">
+            <div class="manual-kicker">
+              SITE CONTROLS
+            </div>
+
+            <div class="about-content">
+
+          <pre class="controls-reference">
+            SPACE       PLAY / PAUSE
+            M           MUTE
+            ← →         NAVIGATE</pre>
+
+              <p>
                 MBV is designed to be on and left running.
               </p>
 
             </div>
-
           </section>
-
         </div>
-
       </section>
-
     </main>
 
 
@@ -2082,7 +2557,7 @@ M           MUTE
           id="miniShow"
           class="mini-show"
         >
-          NIGHT DRIVE
+          LOADING...
         </div>
 
         <div
@@ -2127,6 +2602,7 @@ M           MUTE
         >
 
           <svg
+            id="miniVolumeIcon"
             viewBox="0 0 24 24"
             aria-hidden="true"
           >
@@ -2201,7 +2677,10 @@ M           MUTE
         "1",
 
       streamUrl:
-        "https://simulatorradio.stream/stream?t=1789488925",
+        "http://c11.radioboss.fm:8318/autodj",
+
+      scheduleUrl:
+        "https://demo.azuracast.com/api/station/1/schedule",
 
       nowPlayingInterval:
         15000
@@ -2225,14 +2704,14 @@ M           MUTE
     const showName =
       document.getElementById("showName");
 
+    const showIcon =
+      document.getElementById("showIcon");
+
     const artist =
       document.getElementById("artist");
 
     const trackTitle =
       document.getElementById("trackTitle");
-
-    const liveState =
-      document.getElementById("liveState");
 
     const playButton =
       document.getElementById("playButton");
@@ -2246,14 +2725,14 @@ M           MUTE
     const volumeIcon =
       document.getElementById("volumeIcon");
 
+    const miniVolumeIcon =
+      document.getElementById("miniVolumeIcon");
+
     const volumeSlider =
       document.getElementById("volumeSlider");
 
     const requestButton =
       document.getElementById("requestButton");
-
-    const signal =
-      document.getElementById("signal");
 
     const signalCanvas =
       document.getElementById("signalCanvas");
@@ -2261,17 +2740,32 @@ M           MUTE
     const signalLabel =
       document.getElementById("signalLabel");
 
-    const signalDot =
-      document.getElementById("signalDot");
+    const currentShowName =
+      document.getElementById("currentShowName");
+
+    const currentShowIcon =
+      document.getElementById("currentShowIcon");
+
+    const currentShowTime =
+      document.getElementById("currentShowTime");
+
+    const currentShowDescription =
+      document.getElementById("currentShowDescription");
+
+    const nextShowName =
+      document.getElementById("nextShowName");
+
+    const nextShowIcon =
+      document.getElementById("nextShowIcon");
+
+    const nextShowTime =
+      document.getElementById("nextShowTime");
+
+    const nextShowDescription =
+      document.getElementById("nextShowDescription");
 
     const osd =
       document.getElementById("osd");
-
-    const playerCore =
-      document.getElementById("playerCore");
-
-    const controls =
-      document.getElementById("controls");
 
     const requestView =
       document.getElementById("requestView");
@@ -2327,10 +2821,6 @@ M           MUTE
       null;
 
 
-    /*
-      The signal is driven by the actual audio stream.
-    */
-
     let audioContext =
       null;
 
@@ -2343,15 +2833,11 @@ M           MUTE
     let signalAnimation =
       null;
 
-    let signalConnected =
-      false;
-
-
     let currentTrack = {
 
       artist: "",
       title: "",
-      show: "NIGHT DRIVE",
+      show: "LOADING...",
       artwork: "dookie.png"
 
     };
@@ -2493,7 +2979,7 @@ M           MUTE
 
       miniShow.textContent =
         currentTrack.show ||
-        "MBV";
+        "LOADING...";
 
 
       if (
@@ -2581,7 +3067,7 @@ M           MUTE
         volume === 0
       ) {
 
-        volumeIcon.innerHTML = `
+        const icon = `
           <path
             d="M4 9 H8 L13 5 V19 L8 15 H4 Z"
           ></path>
@@ -2599,9 +3085,12 @@ M           MUTE
           ></path>
         `;
 
+        volumeIcon.innerHTML = icon;
+        miniVolumeIcon.innerHTML = icon;
+
       } else {
 
-        volumeIcon.innerHTML = `
+        const icon = `
           <path
             d="M4 9 H8 L13 5 V19 L8 15 H4 Z"
           ></path>
@@ -2618,6 +3107,9 @@ M           MUTE
             stroke-width="1.8"
           ></path>
         `;
+
+        volumeIcon.innerHTML = icon;
+        miniVolumeIcon.innerHTML = icon;
       }
 
     }
@@ -2685,7 +3177,7 @@ M           MUTE
         case "playing":
 
           signalLabel.textContent =
-            "● LIVE";
+            "PLAYING";
 
           break;
 
@@ -2803,11 +3295,11 @@ M           MUTE
 
 
         analyser.fftSize =
-          256;
+          512;
 
 
         analyser.smoothingTimeConstant =
-          0.82;
+          0.55;
 
 
         sourceNode =
@@ -2824,10 +3316,6 @@ M           MUTE
         analyser.connect(
           audioContext.destination
         );
-
-
-        signalConnected =
-          true;
 
 
         startSignalAnimation();
@@ -2926,20 +3414,23 @@ M           MUTE
       );
 
 
-      /*
-        Baseline.
-      */
+      const centerX =
+        width / 2;
+
+      const centerY =
+        height / 2;
+
+      const baseRadius =
+        Math.min(width, height) / 2 - 8 * dpr;
 
       ctx.beginPath();
 
-      ctx.moveTo(
+      ctx.arc(
+        centerX,
+        centerY,
+        baseRadius,
         0,
-        height / 2
-      );
-
-      ctx.lineTo(
-        width,
-        height / 2
+        Math.PI * 2
       );
 
       ctx.strokeStyle =
@@ -2987,14 +3478,6 @@ M           MUTE
       ctx.beginPath();
 
 
-      const slice =
-        width / data.length;
-
-
-      let x =
-        0;
-
-
       for (
         let i = 0;
         i < data.length;
@@ -3005,23 +3488,24 @@ M           MUTE
           data[i] / 128.0;
 
 
-        /*
-          Small amplification makes the signal visible
-          without turning it into an audio visualizer.
-        */
-
         const amplitude =
-          8 * dpr;
+          12 * dpr;
 
+        const angle =
+          -Math.PI / 2 +
+          (Math.PI * 2 * i) / data.length;
+
+        const radius =
+          baseRadius +
+          (normalized - 1) * amplitude;
+
+        const x =
+          centerX +
+          Math.cos(angle) * radius;
 
         const y =
-          (
-            height / 2
-          ) +
-          (
-            (normalized - 1) *
-            amplitude
-          );
+          centerY +
+          Math.sin(angle) * radius;
 
 
         if (
@@ -3042,8 +3526,9 @@ M           MUTE
         }
 
 
-        x += slice;
       }
+
+      ctx.closePath();
 
 
       ctx.strokeStyle =
@@ -3151,7 +3636,8 @@ M           MUTE
 
     function toggleMute() {
 
-      initializeAudioAnalyser();
+      const wasPlaying =
+        !audio.paused;
 
 
       isMuted =
@@ -3167,7 +3653,9 @@ M           MUTE
       ) {
 
         setPlayerState(
-          "muted"
+          wasPlaying
+            ? "muted"
+            : "paused"
         );
 
 
@@ -3178,9 +3666,9 @@ M           MUTE
       } else {
 
         setPlayerState(
-          audio.paused
-            ? "paused"
-            : "playing"
+          wasPlaying
+            ? "playing"
+            : "paused"
         );
 
 
@@ -3188,6 +3676,21 @@ M           MUTE
           `VOLUME ${Math.round(volume * 100)}%`
         );
 
+      }
+
+
+      if (
+        wasPlaying &&
+        audio.paused
+      ) {
+        audio.play().catch(
+          error => {
+            console.warn(
+              "Playback resume after mute failed:",
+              error
+            );
+          }
+        );
       }
 
 
@@ -3214,8 +3717,15 @@ M           MUTE
         );
 
 
+      const usesDeviceVolume =
+        window.matchMedia(
+          "(hover: none), (pointer: coarse)"
+        ).matches;
+
       audio.volume =
-        volume;
+        usesDeviceVolume
+          ? 1
+          : volume;
 
 
       if (
@@ -3561,6 +4071,17 @@ M           MUTE
       "keydown",
       event => {
 
+        if (
+          event.key === "Escape" &&
+          requestOpen
+        ) {
+
+          event.preventDefault();
+          closeRequest();
+
+          return;
+        }
+
         /*
           Never intercept keyboard navigation while typing.
         */
@@ -3652,24 +4173,12 @@ M           MUTE
       requestOpen =
         true;
 
-
-      playerCore.style.display =
-        "none";
-
-
-      signal.style.display =
-        "none";
-
-
-      controls.style.display =
-        "none";
+      player.classList.add(
+        "requesting"
+      );
 
 
       osd.style.display =
-        "none";
-
-
-      liveState.style.display =
         "none";
 
 
@@ -3691,29 +4200,19 @@ M           MUTE
       requestOpen =
         false;
 
-
-      playerCore.style.display =
-        "";
-
-
-      signal.style.display =
-        "";
-
-
-      controls.style.display =
-        "";
+      player.classList.remove(
+        "requesting"
+      );
 
 
       osd.style.display =
         "";
 
 
-      liveState.style.display =
-        "";
-
-
       requestView.hidden =
         true;
+
+      requestButton.focus();
 
     }
 
@@ -3958,6 +4457,13 @@ M           MUTE
         np?.song;
 
 
+      renderRecentTracks(
+        data.song_history ||
+        np?.song_history ||
+        []
+      );
+
+
       /*
         Do not fabricate metadata.
 
@@ -3995,6 +4501,12 @@ M           MUTE
         np?.streamer_name ||
         currentTrack.show ||
         "MBV";
+
+      const hadTrack =
+        Boolean(
+          currentTrack.artist &&
+          currentTrack.title
+        );
 
 
       const changed =
@@ -4038,6 +4550,12 @@ M           MUTE
       showName.textContent =
         currentTrack.show;
 
+      showIcon.innerHTML =
+        getShowIcon(
+          currentTrack.show,
+          new Date().getHours()
+        );
+
 
       miniShow.textContent =
         currentTrack.show;
@@ -4066,6 +4584,7 @@ M           MUTE
 
       if (
         changed &&
+        hadTrack &&
         currentTrack.artist &&
         currentTrack.title
       ) {
@@ -4105,7 +4624,74 @@ M           MUTE
        SCHEDULE
        ========================================================= */
 
-    const scheduleData = [
+    function getShowIcon(
+      name,
+      startHour
+    ) {
+
+      const label =
+        String(name || "").toLowerCase();
+
+      if (
+        label.includes("night") ||
+        Number(startHour) >= 21 ||
+        Number(startHour) < 3
+      ) {
+        return `
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M19 15.5A8 8 0 0 1 8.5 5a8.5 8.5 0 1 0 10.5 10.5Z"></path>
+            <path d="M17 4v3M15.5 5.5h3"></path>
+          </svg>
+        `;
+      }
+
+      if (
+        label.includes("dusk") ||
+        Number(startHour) >= 18
+      ) {
+        return `
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 18h18"></path>
+            <path d="M5 18a7 7 0 0 1 14 0"></path>
+            <path d="M12 3v3M4.9 7.9l2.1 2.1M19.1 7.9L17 10"></path>
+          </svg>
+        `;
+      }
+
+      if (
+        label.includes("chill") ||
+        Number(startHour) < 7
+      ) {
+        return `
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 17h13a3 3 0 0 0 .4-6A5.5 5.5 0 0 0 8 9.2 4 4 0 0 0 5 17Z"></path>
+            <path d="M8 20h8M11 22h4"></path>
+          </svg>
+        `;
+      }
+
+      if (
+        label.includes("day") ||
+        Number(startHour) < 18
+      ) {
+        return `
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
+          </svg>
+        `;
+      }
+
+      return `
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="8"></circle>
+          <path d="M12 8v4l3 2"></path>
+        </svg>
+      `;
+
+    }
+
+    let scheduleData = [
 
       {
         name:
@@ -4121,7 +4707,7 @@ M           MUTE
           "Late-night and early-morning decompression.",
 
         type:
-          "AUTOMATED BROADCAST"
+          ""
       },
 
 
@@ -4139,7 +4725,7 @@ M           MUTE
           "The station moves into the morning.",
 
         type:
-          "AUTOMATED BROADCAST"
+          ""
       },
 
 
@@ -4157,7 +4743,7 @@ M           MUTE
           "MBV through the middle of the day.",
 
         type:
-          "AUTOMATED BROADCAST"
+          ""
       },
 
 
@@ -4175,7 +4761,7 @@ M           MUTE
           "The transition toward the night.",
 
         type:
-          "AUTOMATED BROADCAST"
+          ""
       },
 
 
@@ -4190,10 +4776,10 @@ M           MUTE
           27,
 
         description:
-          "High-energy D&B for empty highways, mountain roads and movement toward nowhere.",
+          "High-energy D&B for empty highways and mountain roads.",
 
         type:
-          "AUTOMATED BROADCAST"
+          ""
       }
 
     ];
@@ -4317,10 +4903,22 @@ M           MUTE
           element.className =
             "daypart";
 
+          const start =
+            Math.max(0, Math.min(24, Number(part.start)));
+
+          const end =
+            Math.max(start, Math.min(24, Number(part.end)));
+
+          element.style.left =
+            `${(start / 24) * 100}%`;
+
+          element.style.width =
+            `${((end - start) / 24) * 100}%`;
+
 
           const name =
             document.createElement(
-              "span"
+              "div"
             );
 
 
@@ -4328,8 +4926,41 @@ M           MUTE
             "daypart-name";
 
 
-          name.textContent =
+          const icon =
+            document.createElement(
+              "span"
+            );
+
+          icon.className =
+            "daypart-icon";
+
+          icon.setAttribute(
+            "aria-hidden",
+            "true"
+          );
+
+          icon.innerHTML =
+            getShowIcon(
+              part.name,
+              part.start
+            );
+
+
+          const nameText =
+            document.createElement(
+              "span"
+            );
+
+          nameText.textContent =
             part.name;
+
+          name.appendChild(
+            icon
+          );
+
+          name.appendChild(
+            nameText
+          );
 
 
           const time =
@@ -4450,6 +5081,236 @@ M           MUTE
         }
       );
 
+      updateScheduleSpotlight();
+
+    }
+
+
+    function formatScheduleRange(
+      part
+    ) {
+
+      return `${formatHour(part.start)} — ${formatHour(part.end)}`;
+
+    }
+
+
+    function updateScheduleSpotlight() {
+
+      if (
+        !scheduleData.length
+      ) {
+        currentShowName.textContent =
+          "Schedule unavailable";
+
+        currentShowIcon.innerHTML =
+          getShowIcon("", 12);
+
+        currentShowTime.textContent =
+          "--:--";
+
+        currentShowDescription.textContent =
+          "Station schedule data is not available right now.";
+
+        nextShowName.textContent =
+          "Check back soon";
+
+        nextShowIcon.innerHTML =
+          getShowIcon("", 12);
+
+        nextShowTime.textContent =
+          "--:--";
+
+        nextShowDescription.textContent =
+          "";
+
+        return;
+      }
+
+
+      const now =
+        new Date();
+
+      const currentHour =
+        now.getHours() + now.getMinutes() / 60;
+
+      const currentIndex =
+        scheduleData.findIndex(
+          part =>
+            currentHour >= Number(part.start) &&
+            currentHour < Number(part.end)
+        );
+
+      const nextCandidates =
+        scheduleData
+          .map((part, index) => ({
+            part,
+            index,
+            distance:
+              (Number(part.start) - currentHour + 24) % 24
+          }))
+          .filter(item => item.index !== currentIndex)
+          .sort((a, b) => a.distance - b.distance);
+
+      const current =
+        currentIndex >= 0
+          ? scheduleData[currentIndex]
+          : null;
+
+      const next =
+        nextCandidates[0]?.part ||
+        scheduleData[0];
+
+      currentShowName.textContent =
+        current?.name ||
+        "Between shows";
+
+      currentShowIcon.innerHTML =
+        getShowIcon(
+          current?.name,
+          current?.start
+        );
+
+      currentShowTime.textContent =
+        current
+          ? formatScheduleRange(current)
+          : "No show is scheduled right now";
+
+      currentShowDescription.textContent =
+        current?.description ||
+        "The next scheduled broadcast is coming up.";
+
+      nextShowName.textContent =
+        next.name;
+
+      nextShowIcon.innerHTML =
+        getShowIcon(
+          next.name,
+          next.start
+        );
+
+      nextShowTime.textContent =
+        formatScheduleRange(next);
+
+      nextShowDescription.textContent =
+        next.description ||
+        next.type;
+
+      Array.from(
+        document.querySelectorAll(
+          ".daypart"
+        )
+      ).forEach(
+        (element, index) => {
+          element.classList.toggle(
+            "active",
+            index === currentIndex
+          );
+        }
+      );
+
+    }
+
+
+    async function fetchSchedule() {
+
+      const parseScheduleDate = value => {
+        const numericValue = Number(value);
+
+        return new Date(
+          Number.isFinite(numericValue) && numericValue > 0
+            ? numericValue < 100000000000
+              ? numericValue * 1000
+              : numericValue
+            : value
+        );
+      };
+
+      try {
+
+        const response =
+          await fetch(
+            CONFIG.scheduleUrl,
+            {
+              cache:
+                "no-store"
+            }
+          );
+
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+
+        const data =
+          await response.json();
+
+
+        const entries =
+          Array.isArray(data)
+            ? data
+            : data.schedule || data.data || [];
+
+
+        const parsed =
+          entries
+            .map(entry => {
+              const startDate =
+                parseScheduleDate(
+                  entry.start || entry.start_timestamp
+                );
+
+              const endDate =
+                parseScheduleDate(
+                  entry.end || entry.end_timestamp
+                );
+
+              if (
+                Number.isNaN(startDate.getTime()) ||
+                Number.isNaN(endDate.getTime())
+              ) {
+                return null;
+              }
+
+
+              const start =
+                startDate.getHours() + startDate.getMinutes() / 60;
+
+              const parsedEnd =
+                endDate.getHours() + endDate.getMinutes() / 60;
+
+              return {
+                name:
+                  entry.name || entry.program_name || "UNTITLED",
+
+                start,
+
+                end:
+                  parsedEnd <= start
+                    ? 24
+                    : parsedEnd,
+
+                description:
+                  entry.description || "",
+
+                type:
+                  entry.type || "SCHEDULED BROADCAST"
+              };
+            })
+            .filter(Boolean);
+
+
+        if (parsed.length) {
+          scheduleData = parsed;
+          createSchedule();
+        }
+
+      } catch (error) {
+        console.error("AzuraCast schedule error:", error);
+        createSchedule();
+      }
+
     }
 
 
@@ -4497,12 +5358,19 @@ M           MUTE
       1000
     );
 
+    setInterval(
+      updateScheduleSpotlight,
+      60000
+    );
+
 
     /* =========================================================
        RECENTLY PLAYED
        ========================================================= */
 
-    function createRecentTracks() {
+    function renderRecentTracks(
+      history
+    ) {
 
       const list =
         document.getElementById(
@@ -4510,27 +5378,34 @@ M           MUTE
         );
 
 
-      const sampleTracks = [
+      const recentTracks =
+        history
+          .slice(0, 12)
+          .map(track => {
+            const playedAt =
+              new Date(
+                track.played_at ||
+                track.timestamp * 1000
+              );
 
-        ["03:14", "Artist — Track Title"],
-
-        ["03:09", "Artist — Track Title"],
-
-        ["03:04", "Artist — Track Title"],
-
-        ["02:58", "Artist — Track Title"],
-
-        ["02:53", "Artist — Track Title"],
-
-        ["02:47", "Artist — Track Title"],
-
-        ["02:42", "Artist — Track Title"]
-
-      ];
+            return [
+              Number.isNaN(playedAt.getTime())
+                ? "--:--"
+                : playedAt.toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit"
+                  }),
+              track.song?.text ||
+              [track.song?.artist, track.song?.title]
+                .filter(Boolean)
+                .join(" — ") ||
+              "Unknown track"
+            ];
+          });
 
 
       list.innerHTML =
-        sampleTracks
+        recentTracks
           .map(
             ([time, title]) => `
 
@@ -4683,9 +5558,15 @@ M           MUTE
 
     function init() {
 
+      showIcon.innerHTML =
+        getShowIcon(
+          currentTrack.show,
+          21
+        );
+
       createSchedule();
 
-      createRecentTracks();
+      renderRecentTracks([]);
 
       updateNowMarker();
 
@@ -4696,6 +5577,8 @@ M           MUTE
       );
 
       startNowPlayingPolling();
+
+      fetchSchedule();
 
       updateMiniPlayer();
 
