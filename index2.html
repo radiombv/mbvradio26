@@ -2,21 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
   >
-
   <meta name="theme-color" content="#121212">
-
   <title>MBV | 24/7 Drum & Bass Radio</title>
-
   <style>
-    /* =========================================================
-       MBV V2.0
-       ========================================================= */
-
     :root {
       --bg: #121212;
       --surface: #181818;
@@ -59,10 +51,8 @@
         BlinkMacSystemFont,
         "Segoe UI",
         sans-serif;
-
       font-size: 16px;
       line-height: 1.4;
-
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
@@ -84,8 +74,7 @@
 
 
     /* =========================================================
-       PERSISTENT SHELL
-       ONLY LOGO + NAVIGATION
+       LOGO n NAV
        ========================================================= */
 
     .site-shell {
@@ -108,39 +97,29 @@
       user-select: none;
     }
 
-
     /* =========================================================
-       NAVIGATION
+       NAV
        ========================================================= */
 
     .primary-nav {
       display: flex;
       justify-content: center;
       align-items: center;
-
       gap: 28px;
-
       margin-top: 40px;
     }
 
     .nav-button {
       appearance: none;
-
       border: 0;
       background: transparent;
-
       padding: 4px 0;
-
       color: var(--muted);
-
       font-size: 13px;
       font-weight: 600;
-
       letter-spacing: .08em;
       text-transform: uppercase;
-
       cursor: pointer;
-
       transition:
         color 160ms ease;
     }
@@ -171,7 +150,7 @@
 
 
     /* =========================================================
-       LIVE
+       LIVE PLAYER
        ========================================================= */
 
     .player {
@@ -187,6 +166,77 @@
 
       padding-top: 52px;
       padding-bottom: 56px;
+    }
+
+    .live-orientation {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+
+      width: min(calc(100% - 40px), 700px);
+      margin: 30px auto 0;
+
+      text-align: center;
+    }
+
+    .live-orientation-item {
+      min-width: 0;
+
+      text-align: center;
+    }
+
+    .live-orientation-label {
+      display: block;
+      color: var(--muted-2);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 9px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .live-orientation-name {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 3px;
+      overflow: hidden;
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 600;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .live-orientation-mood {
+      display: block;
+      margin-top: 2px;
+      overflow: hidden;
+      color: var(--muted);
+      font-size: 11px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .live-orientation-icon {
+      display: inline-flex;
+    }
+
+    .live-orientation-icon svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.7;
+    }
+
+    .live-next-countdown {
+      color: var(--yellow);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 10px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
     }
 
     .player.requesting .artwork-wrap,
@@ -211,8 +261,8 @@
     }
 
     /* =========================================================
-       PLAYER CORE
-       ARTWORK + METADATA
+       PLAYER
+       ARTWORK + META
        ========================================================= */
 
     .player-core {
@@ -220,13 +270,9 @@
       flex-direction: column;
       align-items: center;
       gap: 22px;
-
       order: 1;
-
       text-align: center;
-
       max-width: 590px;
-
       margin: 0 auto;
     }
 
@@ -383,8 +429,7 @@
 
 
     /* =========================================================
-       SIGNAL
-       WRAPPED AROUND ARTWORK
+       SIGNAL BUZZ THING
        ========================================================= */
 
     .signal {
@@ -548,6 +593,22 @@
         opacity 160ms ease;
     }
 
+    .signal-state-icon {
+      display: inline-flex;
+      flex-shrink: 0;
+      color: currentColor;
+    }
+
+    .signal-state-icon svg {
+      width: 13px;
+      height: 13px;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.8;
+    }
+
     .volume-control:hover .signal-label,
     .volume-control:focus-within .signal-label {
       opacity: 1;
@@ -630,7 +691,11 @@
     }
 
     .request-view h2 {
-      margin: 0 0 8px;
+      margin: 0;
+
+      padding-bottom: 10px;
+
+      border-bottom: 1px solid var(--line);
 
       font-size: 28px;
       font-weight: 500;
@@ -639,7 +704,7 @@
     }
 
     .request-view p {
-      margin: 0 0 28px;
+      margin: 12px 0 24px;
 
       color: var(--muted);
 
@@ -648,6 +713,16 @@
 
     .field {
       margin-bottom: 18px;
+    }
+
+    .request-view .field {
+      display: grid;
+      grid-template-columns: 84px minmax(0, 1fr);
+      align-items: baseline;
+      gap: 16px;
+      padding: 11px 0;
+      margin-bottom: 0;
+      border-bottom: 1px solid var(--line);
     }
 
     .field label {
@@ -662,6 +737,10 @@
 
       letter-spacing: .08em;
       text-transform: uppercase;
+    }
+
+    .request-view .field label {
+      margin: 0;
     }
 
     .field input,
@@ -684,6 +763,12 @@
       resize: vertical;
     }
 
+    .request-view .field input,
+    .request-view .field textarea {
+      padding: 0;
+      border-bottom: 0;
+    }
+
     .field input:focus,
     .field textarea:focus {
       border-bottom-color: var(--yellow);
@@ -691,10 +776,14 @@
 
     .request-actions {
       display: flex;
+      align-items: center;
 
       gap: 20px;
 
-      margin-top: 28px;
+      margin-top: 24px;
+      padding-top: 14px;
+
+      border-top: 1px solid var(--line);
     }
 
     .request-button {
@@ -1156,57 +1245,24 @@
       margin: 0 auto;
     }
 
+    @media (min-width: 701px) {
+      .about-container {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 28px;
+      }
+
+      .about-container > .about-section {
+        min-width: 0;
+      }
+    }
+
     .about-section {
       border-top: 1px solid var(--line);
     }
 
     .about-section:last-child {
       border-bottom: 1px solid var(--line);
-    }
-
-    .about-toggle {
-      appearance: none;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      width: 100%;
-
-      padding: 18px 0;
-
-      border: 0;
-      background: transparent;
-
-      color: var(--white);
-
-      text-align: left;
-
-      font-size: 14px;
-      font-weight: 600;
-
-      letter-spacing: .08em;
-      text-transform: uppercase;
-
-      cursor: pointer;
-    }
-
-    .about-toggle:hover,
-    .about-toggle:focus-visible {
-      color: var(--yellow);
-      outline: none;
-    }
-
-    .about-marker {
-      color: var(--yellow);
-
-      font-family:
-        "SFMono-Regular",
-        Consolas,
-        monospace;
-
-      font-size: 16px;
-      font-weight: 400;
     }
 
     .about-content {
@@ -1579,6 +1635,86 @@
       stroke: currentColor;
     }
 
+    .mini-volume-control {
+      display: inline-flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .mini-volume-slider-wrap {
+      display: flex;
+      align-items: center;
+
+      width: 0;
+      overflow: hidden;
+
+      transition: width 160ms var(--ease);
+    }
+
+    .mini-volume-control:hover .mini-volume-slider-wrap,
+    .mini-volume-control:focus-within .mini-volume-slider-wrap {
+      width: 78px;
+    }
+
+    .mini-volume-slider {
+      width: 68px;
+      height: 2px;
+
+      appearance: none;
+
+      background: #444;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .mini-volume-slider::-webkit-slider-thumb {
+      appearance: none;
+
+      width: 9px;
+      height: 9px;
+
+      border-radius: 50%;
+      background: var(--yellow);
+      cursor: pointer;
+    }
+
+    .mini-volume-slider::-moz-range-thumb {
+      width: 9px;
+      height: 9px;
+
+      border: 0;
+      border-radius: 50%;
+      background: var(--yellow);
+      cursor: pointer;
+    }
+
+
+    @media (min-width: 701px) {
+
+      .site-shell {
+        padding-top: 28px;
+      }
+
+      .primary-nav {
+        margin-top: 26px;
+      }
+
+      .live-orientation {
+        margin-top: 18px;
+      }
+
+      .player {
+        padding-top: 30px;
+        padding-bottom: 34px;
+      }
+
+      .artwork-wrap {
+        width: 190px;
+        height: 190px;
+      }
+
+    }
+
 
     /* =========================================================
        RESPONSIVE
@@ -1611,6 +1747,11 @@
 
         padding-top: 42px;
         padding-bottom: 44px;
+      }
+
+      .live-orientation {
+        width: calc(100% - 32px);
+        gap: 10px;
       }
 
       .player-core {
@@ -1734,6 +1875,12 @@
         width: 44px;
         height: 44px;
       }
+
+      .mini-volume-slider-wrap,
+      .mini-volume-control:hover .mini-volume-slider-wrap,
+      .mini-volume-control:focus-within .mini-volume-slider-wrap {
+        display: none;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1827,6 +1974,55 @@
         aria-label="Live radio"
       >
 
+        <div class="live-orientation" aria-live="polite">
+
+          <div class="live-orientation-item">
+            <span class="live-orientation-label">
+              NOW
+            </span>
+            <strong
+              id="liveCurrentShow"
+              class="live-orientation-name"
+            >
+              <span id="liveCurrentIcon" class="live-orientation-icon" aria-hidden="true"></span>
+              Connecting
+            </strong>
+            <span
+              id="liveCurrentMood"
+              class="live-orientation-mood"
+            >
+              24/7 autonomous radio
+            </span>
+          </div>
+
+          <div class="live-orientation-item">
+            <span class="live-orientation-label">
+              NEXT
+            </span>
+            <strong
+              id="liveNextShow"
+              class="live-orientation-name"
+            >
+              <span id="liveNextIcon" class="live-orientation-icon" aria-hidden="true"></span>
+              Schedule loading
+            </strong>
+            <span
+              id="liveNextMood"
+              class="live-orientation-mood"
+            >
+              Time-of-day programming
+            </span>
+
+            <span
+              id="liveNextCountdown"
+              class="live-next-countdown"
+            >
+              STARTS IN --
+            </span>
+          </div>
+
+        </div>
+
         <div
           id="player"
           class="player ready"
@@ -1841,23 +2037,6 @@
             id="playerCore"
             class="player-core"
           >
-
-            <div
-              class="show-pill"
-              aria-live="polite"
-            >
-
-              <span
-                id="showIcon"
-                class="show-pill-icon"
-                aria-hidden="true"
-              ></span>
-
-              <span id="showName">
-                LOADING...
-              </span>
-
-            </div>
 
             <div class="artwork-wrap">
 
@@ -1881,6 +2060,23 @@
                 ></canvas>
 
               </div>
+
+            </div>
+
+            <div
+              class="show-pill"
+              aria-live="polite"
+            >
+
+              <span
+                id="showIcon"
+                class="show-pill-icon"
+                aria-hidden="true"
+              ></span>
+
+              <span id="showName">
+                CONNECTING
+              </span>
 
             </div>
 
@@ -2011,6 +2207,12 @@
                 >
                   READY
                 </span>
+
+                <span
+                  id="signalStateIcon"
+                  class="signal-state-icon"
+                  aria-hidden="true"
+                ></span>
 
               </div>
 
@@ -2280,24 +2482,13 @@
 
           <!-- STICKER SHOP -->
 
-          <section class="about-section">
+          <section class="about-section open always-open">
 
-            <button
-              class="about-toggle"
-              type="button"
-            >
+            <div class="manual-kicker">
+              THANKS FOR YOUR SUPPORT!
+            </div>
 
-              <span>
-                SUPPORT THE STATION
-              </span>
-              <span class="about-marker">
-                +
-              </span>
-            </button>
             <div class="about-content">
-              <p>
-                Take MBV with you. Show your love with a sticker.
-              </p>
               <div class="sticker-grid">
                 <article class="sticker-card">
                   <div class="sticker-art">
@@ -2308,7 +2499,6 @@
                   </div>
                   <div class="sticker-details">
                     <strong>CLASSIC YELLOW</strong>
-                    <span>The OG wordmark.</span>
                     <span class="sticker-price">$3</span>
                   </div>
                   <a
@@ -2328,7 +2518,6 @@
                   </div>
                   <div class="sticker-details">
                     <strong>GREEN</strong>
-                    <span>We smoked a lot of this.</span>
                     <span class="sticker-price">$4.20</span>
                   </div>
                   <a
@@ -2449,7 +2638,7 @@
 
           <section class="about-section manual-section always-open">
             <div class="manual-kicker">
-              SITE CONTROLS
+              CONTROLS
             </div>
             <div class="about-content">
           <pre class="controls-reference">
@@ -2479,7 +2668,7 @@
           id="miniShow"
           class="mini-show"
         >
-          LOADING...
+          CONNECTING...
         </div>
 
         <div
@@ -2516,12 +2705,14 @@
         </button>
 
 
-        <button
-          id="miniMute"
-          class="mini-control"
-          type="button"
-          aria-label="Mute"
-        >
+        <div class="mini-volume-control">
+
+          <button
+            id="miniMute"
+            class="mini-control"
+            type="button"
+            aria-label="Mute"
+          >
 
           <svg
             id="miniVolumeIcon"
@@ -2541,7 +2732,23 @@
 
           </svg>
 
-        </button>
+          </button>
+
+          <div class="mini-volume-slider-wrap">
+
+            <input
+              id="miniVolumeSlider"
+              class="mini-volume-slider"
+              type="range"
+              min="0"
+              max="100"
+              value="84"
+              aria-label="Mini-player volume"
+            >
+
+          </div>
+
+        </div>
 
 
         <button
@@ -2661,6 +2868,9 @@
     const volumeSlider =
       document.getElementById("volumeSlider");
 
+    const miniVolumeSlider =
+      document.getElementById("miniVolumeSlider");
+
     const requestButton =
       document.getElementById("requestButton");
 
@@ -2669,6 +2879,30 @@
 
     const signalLabel =
       document.getElementById("signalLabel");
+
+    const signalStateIcon =
+      document.getElementById("signalStateIcon");
+
+    const liveCurrentShow =
+      document.getElementById("liveCurrentShow");
+
+    const liveCurrentIcon =
+      document.getElementById("liveCurrentIcon");
+
+    const liveCurrentMood =
+      document.getElementById("liveCurrentMood");
+
+    const liveNextShow =
+      document.getElementById("liveNextShow");
+
+    const liveNextIcon =
+      document.getElementById("liveNextIcon");
+
+    const liveNextMood =
+      document.getElementById("liveNextMood");
+
+    const liveNextCountdown =
+      document.getElementById("liveNextCountdown");
 
     const currentShowName =
       document.getElementById("currentShowName");
@@ -2767,7 +3001,7 @@
 
       artist: "",
       title: "",
-      show: "LOADING...",
+      show: "CONNECTING...",
       artwork: "dookie.png"
 
     };
@@ -2853,8 +3087,8 @@
 
     /*
       Important:
-      Once the mini player appears outside LIVE, PAUSED does
-      NOT hide it.
+      Once the mini player appears outside LIVE/LISTEN, 
+      PAUSED state does NOT hide it.
 
       It remains present for every playback-related state
       until the user returns to LIVE.
@@ -2909,7 +3143,7 @@
 
       miniShow.textContent =
         currentTrack.show ||
-        "LOADING...";
+        "CONNECTING TO MBV";
 
 
       if (
@@ -2923,7 +3157,7 @@
       } else {
 
         miniTrack.textContent =
-          "—";
+          "-";
 
       }
 
@@ -3078,6 +3312,36 @@
        SIGNAL STATE
        ========================================================= */
 
+    function getConnectionIcon(
+      state
+    ) {
+
+      if (
+        state === "offline"
+      ) {
+        return `
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3 22 21H2L12 3Z"></path>
+            <path d="M12 9v5M12 18h.01"></path>
+          </svg>
+        `;
+      }
+
+      if (
+        state === "loading" ||
+        state === "reconnecting"
+      ) {
+        return `
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"></path>
+          </svg>
+        `;
+      }
+
+      return "";
+
+    }
+
     function updateSignalState() {
 
       /*
@@ -3147,7 +3411,7 @@
         case "offline":
 
           signalLabel.textContent =
-            "OFFLINE";
+            "STATION OFFLINE";
 
           break;
 
@@ -3157,6 +3421,11 @@
           signalLabel.textContent =
             "READY";
       }
+
+      signalStateIcon.innerHTML =
+        getConnectionIcon(
+          playerState
+        );
 
     }
 
@@ -3685,6 +3954,11 @@
           volume * 100
         );
 
+      miniVolumeSlider.value =
+        Math.round(
+          volume * 100
+        );
+
 
       setVolumeIcon();
 
@@ -3787,12 +4061,9 @@
       "error",
       () => {
 
-        if (
-          !audio.paused
-        ) {
-
+        if (audio.error) {
           setPlayerState(
-            "reconnecting"
+            "offline"
           );
 
         }
@@ -3839,6 +4110,17 @@
           ) / 100
         );
 
+      }
+    );
+
+    miniVolumeSlider.addEventListener(
+      "input",
+      event => {
+        setVolume(
+          Number(
+            event.target.value
+          ) / 100
+        );
       }
     );
 
@@ -5028,6 +5310,42 @@
     }
 
 
+    function formatStartCountdown(
+      startHour
+    ) {
+
+      const now =
+        new Date();
+
+      const currentMinutes =
+        now.getHours() * 60 +
+        now.getMinutes();
+
+      const startMinutes =
+        Number(startHour) * 60;
+
+      const minutesUntil =
+        (startMinutes - currentMinutes + 1440) % 1440;
+
+      if (
+        minutesUntil === 0
+      ) {
+        return "STARTING NOW";
+      }
+
+      const hours =
+        Math.floor(minutesUntil / 60);
+
+      const minutes =
+        minutesUntil % 60;
+
+      return hours > 0
+        ? `STARTS IN ${hours}H ${minutes}M`
+        : `STARTS IN ${minutes}M`;
+
+    }
+
+
     function updateScheduleSpotlight() {
 
       if (
@@ -5056,6 +5374,27 @@
 
         nextShowDescription.textContent =
           "";
+
+        liveCurrentShow.textContent =
+          "Connecting to MBV";
+
+        liveCurrentMood.textContent =
+          "24/7 autonomous radio";
+
+        liveCurrentIcon.innerHTML =
+          getShowIcon("", 12);
+
+        liveNextShow.textContent =
+          "Schedule unavailable";
+
+        liveNextMood.textContent =
+          "Daypart information will return soon";
+
+        liveNextIcon.innerHTML =
+          getShowIcon("", 12);
+
+        liveNextCountdown.textContent =
+          "STARTS IN --";
 
         return;
       }
@@ -5128,6 +5467,38 @@
       nextShowDescription.textContent =
         next.description ||
         next.type;
+
+      liveCurrentShow.textContent =
+        current?.name ||
+        "Between dayparts";
+
+      liveCurrentMood.textContent =
+        current?.description ||
+        "24/7 autonomous radio";
+
+      liveCurrentIcon.innerHTML =
+        getShowIcon(
+          current?.name,
+          current?.start
+        );
+
+      liveNextShow.textContent =
+        next.name;
+
+      liveNextMood.textContent =
+        next.description ||
+        "Next time-of-day mood";
+
+      liveNextIcon.innerHTML =
+        getShowIcon(
+          next.name,
+          next.start
+        );
+
+      liveNextCountdown.textContent =
+        formatStartCountdown(
+          next.start
+        );
 
       Array.from(
         document.querySelectorAll(
@@ -5567,10 +5938,7 @@
       initializeSkin();
 
       showIcon.innerHTML =
-        getShowIcon(
-          currentTrack.show,
-          21
-        );
+        getConnectionIcon("loading");
 
       createSchedule();
 
