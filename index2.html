@@ -10,12 +10,11 @@
 
   <meta name="theme-color" content="#121212">
 
-  <title>MBV | 24/7 Classic Jungle Radio</title>
+  <title>MBV | 24/7 Drum & Bass Radio</title>
 
   <style>
     /* =========================================================
-       MBV
-       24/7 CLASSIC JUNGLE RADIO
+       MBV V2.0
        ========================================================= */
 
     :root {
@@ -26,6 +25,8 @@
       --muted-2: #666;
       --line: #303030;
       --yellow: #f8ca07;
+      --blue: #1865ba;
+      --red: #e22b24;
 
       --content-width: 1080px;
       --about-width: 640px;
@@ -208,75 +209,6 @@
     .player .osd {
       order: 4;
     }
-
-    .live-sticker-banner {
-      position: fixed;
-      left: 18px;
-      bottom: 18px;
-      z-index: 90;
-
-      width: min(220px, calc(100% - 36px));
-
-      border: 1px solid var(--line);
-      background: var(--surface);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, .24);
-    }
-
-    .live-sticker-toggle {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-
-      width: 100%;
-      padding: 10px 12px;
-
-      border: 0;
-      background: transparent;
-      color: var(--yellow);
-
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-align: left;
-      text-transform: uppercase;
-      cursor: pointer;
-    }
-
-    .live-sticker-toggle:hover,
-    .live-sticker-toggle:focus-visible {
-      color: var(--white);
-      outline: none;
-    }
-
-    .live-sticker-details {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-
-      padding: 0 12px 11px;
-
-      color: var(--muted);
-      font-size: 11px;
-      line-height: 1.35;
-    }
-
-    .live-sticker-details a {
-      flex-shrink: 0;
-      color: var(--yellow);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .08em;
-      text-decoration: none;
-    }
-
-    .live-sticker-details a:hover,
-    .live-sticker-details a:focus-visible {
-      color: var(--white);
-      outline: none;
-    }
-
 
     /* =========================================================
        PLAYER CORE
@@ -1485,6 +1417,50 @@
       outline: none;
     }
 
+    .skin-picker {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .skin-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+
+      appearance: none;
+      padding: 8px 10px;
+
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .skin-button::before {
+      content: "";
+
+      width: 8px;
+      height: 8px;
+
+      border-radius: 50%;
+      background: var(--skin-color);
+    }
+
+    .skin-button:hover,
+    .skin-button:focus-visible,
+    .skin-button[aria-pressed="true"] {
+      border-color: var(--skin-color);
+      color: var(--skin-color);
+      outline: none;
+    }
+
 
     /* =========================================================
        MINI PLAYER
@@ -1795,7 +1771,7 @@
       <img
         id="brandLogo"
         class="brand"
-        src="https://raw.githubusercontent.com/radiombv/mbvradio26/refs/heads/main/MBV_YELLOWc.png"
+        src="images/color/MBV_YELLOWc.png"
         alt="MBV"
       >
 
@@ -1810,7 +1786,7 @@
           data-view="live"
           type="button"
         >
-          LIVE
+          LISTEN
         </button>
 
         <button
@@ -2091,11 +2067,11 @@
           >
 
             <h2>
-              REQUEST
+              WHAT'S UP?
             </h2>
 
             <p>
-              Send a track request to MBV.
+              Send a track request or message to MBV.
             </p>
 
 
@@ -2151,33 +2127,6 @@
           </div>
 
         </div>
-
-        <aside
-          id="liveStickerBanner"
-          class="live-sticker-banner"
-          aria-label="MBV sticker shop"
-        >
-
-          <button
-            id="liveStickerToggle"
-            class="live-sticker-toggle"
-            type="button"
-            aria-expanded="false"
-          >
-            <span>MBV STICKERS</span>
-            <span aria-hidden="true">+</span>
-          </button>
-
-          <div
-            id="liveStickerDetails"
-            class="live-sticker-details"
-            hidden
-          >
-            <span>Yellow + green marks from $3.</span>
-            <a href="mailto:mbv@mbvradio.com?subject=MBV%20Sticker%20Order">ORDER</a>
-          </div>
-
-        </aside>
 
       </section>
 
@@ -2404,8 +2353,8 @@
             <div class="about-content">
 
               <p>
-                Launched in 2024, MBV [Massive Brain Volume] is a community-driven 24/7 radio station dedicated to the sounds of classic 90s and early 2000s
-                amongst all - jungle, liquid, and atmospheric drum &amp; bass music.
+                Launched in 2024, MBV [Massive Brain Volume] is a community-driven 24/7 drum & bass radio station.
+                A continuous, daypart oriented programming dedicated to the sounds of classic 90s and early 2000s.
               </p>
 
 
@@ -2439,6 +2388,58 @@
                 </li>
 
               </ul>
+
+            </div>
+
+          </section>
+
+          <!-- CONTROLS -->
+
+          <section class="about-section manual-section always-open">
+
+            <div class="manual-kicker">
+              SKIN
+            </div>
+
+            <div class="about-content">
+
+              <div
+                class="skin-picker"
+                role="group"
+                aria-label="Site color skin"
+              >
+
+                <button
+                  class="skin-button"
+                  type="button"
+                  data-skin="classic"
+                  style="--skin-color: #f8ca07"
+                  aria-pressed="true"
+                >
+                  CLASSIC
+                </button>
+
+                <button
+                  class="skin-button"
+                  type="button"
+                  data-skin="blue"
+                  style="--skin-color: #1865ba"
+                  aria-pressed="false"
+                >
+                  BLUE
+                </button>
+
+                <button
+                  class="skin-button"
+                  type="button"
+                  data-skin="red"
+                  style="--skin-color: #e22b24"
+                  aria-pressed="false"
+                >
+                  RED
+                </button>
+
+              </div>
 
             </div>
 
@@ -2627,6 +2628,14 @@
 
     const showIcon =
       document.getElementById("showIcon");
+
+    const brandLogo =
+      document.getElementById("brandLogo");
+
+    const skinButtons =
+      document.querySelectorAll(
+        ".skin-button"
+      );
 
     const artist =
       document.getElementById("artist");
@@ -3453,10 +3462,12 @@
 
 
       ctx.strokeStyle =
-        "#f8ca07";
+        getComputedStyle(document.body)
+          .getPropertyValue("--yellow")
+          .trim() || "#f8ca07";
 
       ctx.lineWidth =
-        1.2 * dpr;
+        1.6 * dpr;
 
       ctx.lineCap =
         "round";
@@ -4616,37 +4627,21 @@
 
       {
         name:
-          "NIGHTBUS",
+          "AYE, M!",
 
         start:
           0,
 
         end:
-          3,
+          5,
 
         description:
-          "Atmospheric and downtempo for late-late nights.",
+          "ATMOSPHERIC / DOWNTEMPO / JUNGLE CLASSICS",
 
         type:
           ""
       },
 
-      {
-        name:
-          "DAW&B",
-
-        start:
-          3,
-
-        end:
-          7,
-
-        description:
-          "Atmospheric and downtempo for late-late nights and early mornings.",
-
-        type:
-          ""
-      },
 
 
       {
@@ -4654,13 +4649,13 @@
           "DAYBREAK",
 
         start:
-          7,
+          5,
 
         end:
           10,
 
         description:
-          "Another day, another dollar.",
+          "DEEP / LIQUID / SOULFUL",
 
         type:
           ""
@@ -4669,7 +4664,7 @@
 
       {
         name:
-          "DAY",
+          "CRUISE",
 
         start:
           10,
@@ -4678,7 +4673,7 @@
           16,
 
         description:
-          "MBV through the the day.",
+          "ROLLING / GROOVY",
 
         type:
           ""
@@ -4693,10 +4688,10 @@
           16,
 
         end:
-          19,
+          20,
 
         description:
-          "Getting you out of work, hopefully.",
+          "ENERGETIC / DANCEFLOOR / DRIVING",
 
         type:
           ""
@@ -4705,16 +4700,16 @@
 
       {
         name:
-          "THE OVERNIGHT SHIFT",
+          "NIGHT SHIFT",
 
         start:
-          19,
+          20,
 
         end:
           24,
 
         description:
-          "Empty highways and the depth of night awaits.",
+          "DARK / HEAVY / NEURO",
 
         type:
           ""
@@ -5458,6 +5453,79 @@
 
 
     /* =========================================================
+       COLOR SKINS
+       ========================================================= */
+
+    const skinConfig = {
+      classic: {
+        color: "#f8ca07",
+        logo: "images/color/MBV_YELLOWc.png"
+      },
+      blue: {
+        color: "#1865ba",
+        logo: "images/color/MBV_BLUE.png"
+      },
+      red: {
+        color: "#e22b24",
+        logo: "images/color/MBV_RED.png"
+      }
+    };
+
+
+    function applySkin(
+      skinName
+    ) {
+
+      const skin =
+        skinConfig[skinName] ||
+        skinConfig.classic;
+
+      document.documentElement.style.setProperty(
+        "--yellow",
+        skin.color
+      );
+
+      brandLogo.src =
+        skin.logo;
+
+      skinButtons.forEach(
+        button => {
+          button.setAttribute(
+            "aria-pressed",
+            button.dataset.skin === skinName
+          );
+        }
+      );
+
+      localStorage.setItem(
+        "mbv-skin",
+        skinName
+      );
+
+    }
+
+
+    skinButtons.forEach(
+      button => {
+        button.addEventListener(
+          "click",
+          () => applySkin(button.dataset.skin)
+        );
+      }
+    );
+
+
+    function initializeSkin() {
+
+      applySkin(
+        localStorage.getItem("mbv-skin") ||
+        "classic"
+      );
+
+    }
+
+
+    /* =========================================================
        AUDIO CONFIGURATION
        ========================================================= */
 
@@ -5495,6 +5563,8 @@
        ========================================================= */
 
     function init() {
+
+      initializeSkin();
 
       showIcon.innerHTML =
         getShowIcon(
